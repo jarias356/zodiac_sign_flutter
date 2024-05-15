@@ -1,9 +1,8 @@
 import 'package:get/get.dart';
-import 'package:zodiac_sign_flutter/commons/database/app_db.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zodiac_sign_flutter/commons/database/database.dart';
 import 'package:zodiac_sign_flutter/core/core.dart';
-
-import '../utils/constants.dart';
+import 'package:zodiac_sign_flutter/di/preference_module.dart';
 
 class ZodiacSign {
   ZodiacSign() {
@@ -12,6 +11,7 @@ class ZodiacSign {
   }
 
   void _db() async {
+    Get.put<PreferenceModule>(PreferenceModule(await SharedPreferences.getInstance()));
     AppDB.getInstance();
   }
 

@@ -1,18 +1,23 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:zodiac_sign_flutter/utils/constants.dart';
 
 import '../../core/core.dart';
+import '../../di/preference_module.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
 
   final loginViewModel = Get.find<LoginViewModel>();
+  final preferenceModule = Get.find<PreferenceModule>();
 
   @override
   Widget build(BuildContext context) {
+    preferenceModule.setString("new", "Theme by define");
+
+    print(preferenceModule.getString("new"));
+
     return const SafeArea(
       child: Scaffold(
         body: Center(
