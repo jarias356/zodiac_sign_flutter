@@ -5,9 +5,10 @@ import 'package:zodiac_sign_flutter/di/zodiac_sign_app.dart';
 import 'package:zodiac_sign_flutter/route/app_routes.dart';
 import 'package:zodiac_sign_flutter/route/route_const.dart';
 
-void main() {
+void main() async  {
   WidgetsFlutterBinding.ensureInitialized();
-  ZodiacSign();
+  await initStorage();
+  initKoin();
   runApp(const MyApp());
 
 }

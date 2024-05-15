@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:zodiac_sign_flutter/di/preference_module.dart';
 import 'package:zodiac_sign_flutter/utils/constants.dart';
 
 import '../../core/core.dart';
@@ -8,17 +7,10 @@ import '../../core/core.dart';
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
 
-  final loginViewModel = Get.find<LoginViewModel>();
-  // final preferenceModule = Get.find()<PreferenceModule>();
+  final _loginViewModel = Get.find<LoginViewModel>();
 
   @override
   Widget build(BuildContext context) {
-
-
-    // preferenceModule.setString("New", "Theme by define");
-    //
-    // preferenceModule.getString("New");
-
     return SafeArea(
       child: Scaffold(
         body: Center(
@@ -38,26 +30,13 @@ class LoginScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.all(20),
                   child: TextField(
-                    controller: loginViewModel.userNameController,
+                    controller: _loginViewModel.userNameController,
                     decoration: const InputDecoration(
-                        border: OutlineInputBorder(), labelText: name
-                    ),
+                        border: OutlineInputBorder(), labelText: name),
                     onChanged: (value) {
-                      loginViewModel.validInputUserName();
+                      _loginViewModel.setUserName(value);
                     },
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child:
-                      FilledButton(
-                          onPressed: () {
-                            if (loginViewModel.validInputUserName()) {
-                              print("User by sign");
-                            }
-                          },
-                          child: const Text(txtGetStared)
-                      ),
                 ),
               ],
             ),

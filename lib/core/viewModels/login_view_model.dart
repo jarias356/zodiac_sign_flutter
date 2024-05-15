@@ -1,27 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:zodiac_sign_flutter/commons/database/database.dart';
 
 import '../repositories/login_repository.dart';
 
 class LoginViewModel extends GetxController {
-  var counter = 0.obs;
+  final RxBool enabledButtonLogin = false.obs;
 
   final _loginRepository = Get.find<LoginRepository>();
 
   final TextEditingController userNameController = TextEditingController();
-  String _userNameValue = "";
+  final RxString _userNameValue = "".obs;
 
   void setUserName(String value) {
-    _userNameValue = value;
+    _userNameValue.value = value;
+    _validInputUserName();
   }
-
-  bool validInputUserName() {
-    if (_userNameValue.isNotEmpty) {
-      return true;
-    } return false;
-
+  void _validInputUserName() {
+    enabledButtonLogin.value = _userNameValue.value.isNotEmpty;
   }
-
 
 }

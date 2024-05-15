@@ -1,21 +1,12 @@
+import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 class LoginRepository {
-  int incrementCounter(int currentCounter) {
-    try {
-      var newValue = currentCounter+1;
-      if (newValue > 0 && newValue > currentCounter) {
-        return newValue;
+  final SharedPreferences _sharedPreferences = Get.find<SharedPreferences>();
 
-      } else {
-        return currentCounter;
-
-      }
-
-    } catch (e) {
-      return currentCounter;
-
-    }
-
-
+  void saveUserName(String userNameValue) {
+    _sharedPreferences.setString("userName", userNameValue);
+    print("PreferenceTest ${_sharedPreferences.getString("userName")}");
   }
 
 }
