@@ -1,19 +1,20 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PreferenceModule {
-  late final SharedPreferences _sharedPreference;
+  late final SharedPreferences _preference;
 
-  PreferenceModule(SharedPreferences sharedPreference) {
-    _sharedPreference = sharedPreference;
+
+  Future<SharedPreferences> init() async {
+    _preference = await SharedPreferences.getInstance();
+    return _preference;
   }
 
-  void setString(String key, String value)  {
-    _sharedPreference.setString(key, value);
+  void setString(String key, String value) async {
+    _preference.setString(key, value);
   }
-  String? getString(String key) {
-    return _sharedPreference.getString(key);
+  String getString(String key) {
+    return _preference.getString(key) ?? "";
   }
-
-
 
 }
+
