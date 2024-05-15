@@ -16,29 +16,40 @@ class LoginScreen extends StatelessWidget {
     return const SafeArea(
       child: Scaffold(
         body: Center(
-            child: Center(
-                child: Padding(
+            child: 
+            Center(
+                child: 
+                Padding(
                   padding: EdgeInsets.all(50),
-                    child: Card(
-                      color: Colors.indigo,
-                        child: Column(
+                    child: 
+                    Card(
+                        borderOnForeground: false,
+                        child: 
+                        Column(
                         mainAxisSize: MainAxisSize.min,
-                          children:[
-                        Text(
+                          children:<Widget>[
+                          Text(
                             txtPrincipalLogin,
                             style: TextStyle(fontSize: 30),
                           textAlign: TextAlign.center,
                         ),
-                        Padding(
+                          Padding(
                           padding: EdgeInsets.all(20),
-                          child: TextField(
+                            child: TextField(
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
                                 labelText: name
                             ),
                           ),
                         ),
-                      ],
+                          Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child:
+                            FilledButton(
+                                onPressed: null,
+                                child: Text(txtGetStared)),
+                          ),
+                          ],
                     ),
                   ),
                 )
