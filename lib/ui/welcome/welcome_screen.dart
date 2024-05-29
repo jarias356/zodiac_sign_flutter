@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zodiac_sign_flutter/ui/getcompatibility/get_compatibility_screen.dart';
+import 'package:zodiac_sign_flutter/ui/getsign/get_more_sign.dart';
 import 'package:zodiac_sign_flutter/ui/getsign/get_sign_screen.dart';
 import 'package:zodiac_sign_flutter/utils/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,16 +15,17 @@ void main() {
       title: 'Zodiac App',
       initialRoute: '/',
       getPages: [
-        GetPage(name: '/', page: () => const WelcomeScreen()),
+        GetPage(name: '/', page: () =>  WelcomeScreen()),
         GetPage(name: '/get', page: () => const GetSign()), 
         GetPage(name: '/compatibility', page: () => const GetCompatibility()),
+        GetPage(name: '/moreget', page: () => const GetMoreSign()),
       ],
     ),
   );
 }
 
 class WelcomeScreen extends StatelessWidget {
-  const WelcomeScreen({super.key});
+  WelcomeScreen({super.key});
   //final loginViewModel = Get.find<LoginViewModel>();
   //final preferenceModule = Get.find<PreferenceModule>();
 
@@ -32,6 +33,8 @@ class WelcomeScreen extends StatelessWidget {
   final String txtGetMySign = "Saber mi signo";
   final String txtGetCompatibility = "Compatibilidad";
   final String name = "Nombre";
+
+  final TextEditingController nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +67,7 @@ class WelcomeScreen extends StatelessWidget {
                           ),
                           const SizedBox(height: 20),
                           TextField(
+                            controller: nameController, // Añade el controlador aquí
                             decoration: InputDecoration(
                               labelText: name,
                               labelStyle: GoogleFonts.germaniaOne(color: const Color.fromARGB(255, 5, 15, 121)),
@@ -72,8 +76,8 @@ class WelcomeScreen extends StatelessWidget {
                               ),
                               focusedBorder: const OutlineInputBorder(
                                 borderSide: BorderSide(color: Color.fromARGB(255, 87, 182, 237)),
-                                
                               ),
+                              hintStyle: GoogleFonts.germaniaOne(color: const Color.fromARGB(255, 5, 15, 121)),
                             ),
                           ),
                           const SizedBox(height: 20),
@@ -82,7 +86,10 @@ class WelcomeScreen extends StatelessWidget {
                             children: [
                               ElevatedButton(
                                 onPressed: () {
-                                  Get.toNamed('/get');
+                                  // Obtiene el texto del TextField
+                                  String userName = nameController.text;
+                                  // Navega a la pantalla 'GetSign' pasando el texto
+                                  Get.toNamed('/get', arguments: userName);
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: const Color.fromARGB(237, 255, 255, 255), 
@@ -122,4 +129,5 @@ class WelcomeScreen extends StatelessWidget {
     );
   }
 }
+
 
