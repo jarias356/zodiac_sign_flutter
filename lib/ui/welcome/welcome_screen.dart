@@ -101,19 +101,6 @@ class WelcomeScreen extends StatelessWidget {
                                   
                                 ),
                               ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  Get.toNamed('/compatibility');
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor:  const Color.fromARGB(237, 255, 255, 255), 
-                                  side: const BorderSide(color: Color.fromARGB(255, 73, 209, 209)),
-                                ),
-                                child: Text(
-                                  txtGetCompatibility,
-                                  style: GoogleFonts.germaniaOne(fontSize: 18, color:const Color.fromARGB(237, 1, 103, 255)),
-                                ),
-                              ),
                             ],
                           ),
                         ],
