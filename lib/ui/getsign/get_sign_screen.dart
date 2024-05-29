@@ -26,6 +26,7 @@ class _GetSignState extends State<GetSign> {
     //preferenceModule.setString("new", "Theme by define");
 
     //print(preferenceModule.getString("new"));
+    String? userName = Get.arguments as String?;
     
     return Scaffold(
       body: Center(
@@ -41,13 +42,25 @@ class _GetSignState extends State<GetSign> {
                   padding: const EdgeInsets.all(12),
                   margin: const EdgeInsets.symmetric(vertical: 20),
                   color: const Color.fromARGB(255, 243, 229, 33),
-                  child: Text(
-                    tittle,
-                    style: GoogleFonts.germaniaOne( 
-                      fontSize: 30, 
-                      color: const Color.fromARGB(255, 7, 174, 235)
-                    ),
-                    textAlign: TextAlign.center,
+                  child: Column(
+                    children: [
+                      Text(
+                        '¡Bienvenido, ${userName ?? "Nombre"}!',
+                        style: GoogleFonts.germaniaOne(
+                          fontSize: 30,
+                          color: const Color.fromARGB(255, 7, 174, 235),
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 20),
+                      Text(
+                        tittle,
+                        style: GoogleFonts.germaniaOne(
+                          fontSize: 20,
+                          color: const Color.fromARGB(255, 7, 174, 235),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 ElevatedButton.icon(
@@ -67,9 +80,9 @@ class _GetSignState extends State<GetSign> {
                   icon: const Icon(Icons.calendar_today),
                   label: Text(
                     fechaa,
-                    style: GoogleFonts.germaniaOne( 
-                      fontSize: 20, 
-                      color: const Color.fromARGB(255, 254, 216, 1)
+                    style: GoogleFonts.germaniaOne(
+                      fontSize: 20,
+                      color: const Color.fromARGB(255, 254, 216, 1),
                     ),
                   ),
                 ),
@@ -79,9 +92,9 @@ class _GetSignState extends State<GetSign> {
                   color: const Color.fromARGB(158, 255, 14, 14),
                   child: Text(
                     _signo.getDateString(),
-                    style: GoogleFonts.germaniaOne( 
-                      fontSize: 20, 
-                      color: const Color.fromARGB(255, 1, 140, 254)
+                    style: GoogleFonts.germaniaOne(
+                      fontSize: 20,
+                      color: const Color.fromARGB(255, 1, 140, 254),
                     ),
                   ),
                 ),
@@ -91,9 +104,9 @@ class _GetSignState extends State<GetSign> {
                   color: const Color.fromARGB(171, 80, 160, 251),
                   child: Text(
                     _signo.getSignoZodiacal(),
-                    style: GoogleFonts.germaniaOne( 
-                      fontSize: 20, 
-                      color: const Color.fromARGB(255, 254, 5, 1)
+                    style: GoogleFonts.germaniaOne(
+                      fontSize: 20,
+                      color: const Color.fromARGB(255, 254, 5, 1),
                     ),
                   ),
                 ),
@@ -106,39 +119,41 @@ class _GetSignState extends State<GetSign> {
                         Navigator.pushNamed(context, '/');
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor:  const Color.fromARGB(237, 255, 255, 255), 
+                        backgroundColor: const Color.fromARGB(237, 255, 255, 255),
                         side: const BorderSide(color: Color.fromARGB(255, 209, 73, 73)),
                       ),
                       child: Text(
                         'Inicio',
-                        style: GoogleFonts.germaniaOne(fontSize: 18, color:const Color.fromARGB(236, 255, 1, 1)),
-                     ),
+                        style: GoogleFonts.germaniaOne(fontSize: 18, color: const Color.fromARGB(236, 255, 1, 1)),
+                      ),
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        Get.toNamed('/get');
+                        
+                        Get.toNamed('/moreget', arguments: _signo.getSignoZodiacal());
+
                       },
-                       style: ElevatedButton.styleFrom(
-                        backgroundColor:  const Color.fromARGB(237, 255, 255, 255), 
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(237, 255, 255, 255),
                         side: const BorderSide(color: Color.fromARGB(255, 255, 238, 0)),
                       ),
                       child: Text(
                         'Más sobre mi signo',
-                        style: GoogleFonts.germaniaOne(fontSize: 18, color:const Color.fromARGB(255, 255, 230, 1)),
-                     ),
+                        style: GoogleFonts.germaniaOne(fontSize: 18, color: const Color.fromARGB(255, 255, 230, 1)),
+                      ),
                     ),
                     ElevatedButton(
                       onPressed: () {
                         Get.toNamed('/compatibility');
                       },
-                       style: ElevatedButton.styleFrom(
-                        backgroundColor:  const Color.fromARGB(237, 255, 255, 255), 
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(237, 255, 255, 255),
                         side: const BorderSide(color: Color.fromARGB(255, 0, 76, 255)),
                       ),
                       child: Text(
                         'Compatibilidad',
-                        style: GoogleFonts.germaniaOne(fontSize: 18, color:const Color.fromARGB(255, 1, 213, 255)),
-                     ),
+                        style: GoogleFonts.germaniaOne(fontSize: 18, color: const Color.fromARGB(255, 1, 213, 255)),
+                      ),
                     ),
                   ],
                 ),
