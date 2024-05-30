@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:zodiac_sign_flutter/ui/welcome/welcome_screen.dart';
+import 'package:get_storage/get_storage.dart';
+//import 'package:zodiac_sign_flutter/ui/welcome/welcome_screen.dart';
 
 
 
@@ -10,7 +11,10 @@ class GetMoreSign extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String signo = Get.arguments as String;
+    final storage = GetStorage(); // Inicializar GetStorage
+
+    // Obtener el signo zodiacal almacenado en GetStorage
+    final String signo = storage.read('signoZodiacal') ?? 'No hay signo seleccionado';
     final String descripcion = obtenerDescripcionSigno(signo);
 
     return Scaffold(
@@ -28,9 +32,9 @@ class GetMoreSign extends StatelessWidget {
                     Navigator.pushNamed(context, '/');
                   },
                   style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(235, 255, 247, 247),
-                        side: const BorderSide(color: Color.fromARGB(255, 255, 8, 0)),
-                      ),
+                    backgroundColor: const Color.fromARGB(235, 255, 247, 247),
+                    side: const BorderSide(color: Color.fromARGB(255, 255, 8, 0)),
+                  ),
                   child: Text(
                     'Inicio',
                     style: GoogleFonts.germaniaOne(fontSize: 18, color: const Color.fromARGB(255, 190, 4, 4)),
@@ -42,9 +46,9 @@ class GetMoreSign extends StatelessWidget {
                     Get.toNamed('/compatibility');
                   },
                   style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(236, 1, 183, 189),
-                        side: const BorderSide(color: Color.fromARGB(255, 0, 76, 255)),
-                      ),
+                    backgroundColor: const Color.fromARGB(236, 1, 183, 189),
+                    side: const BorderSide(color: Color.fromARGB(255, 0, 76, 255)),
+                  ),
                   child: Text(
                     'Ver compatibilidad',
                     style: GoogleFonts.germaniaOne(fontSize: 18, color: Colors.white),
@@ -97,7 +101,7 @@ class ZodiacCard extends StatelessWidget {
   final String signo;
   final String descripcion;
 
-  const ZodiacCard({super.key, required this.signo, required this.descripcion});
+  const ZodiacCard({Key? key, required this.signo, required this.descripcion}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +114,7 @@ class ZodiacCard extends StatelessWidget {
           children: [
             Text(
               'Tu signo zodiacal es...',
-               style: GoogleFonts.germaniaOne(fontSize: 26, color: const Color.fromARGB(255, 240, 20, 20)),
+              style: GoogleFonts.germaniaOne(fontSize: 26, color: const Color.fromARGB(255, 240, 20, 20)),
             ),
             const SizedBox(height: 10),
             Text(
