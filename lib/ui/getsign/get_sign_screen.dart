@@ -1,33 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:zodiac_sign_flutter/ui/welcome/welcome_screen.dart';
+import 'package:get_storage/get_storage.dart';
+//import 'package:zodiac_sign_flutter/ui/welcome/welcome_screen.dart';
 
-import '../../core/core.dart';
-import '../../di/preference_module.dart';
 
 class GetSign extends StatefulWidget {
   const GetSign({super.key});
 
   @override
   
+  // ignore: library_private_types_in_public_api
   _GetSignState createState() => _GetSignState();
 }
 
 class _GetSignState extends State<GetSign> {
-//final loginViewModel = Get.find<LoginViewModel>();
-  //final preferenceModule = Get.find<PreferenceModule>();
-
   final Signo _signo = Signo();
   final String tittle = "Elige tu fecha de nacimiento";
   final String fechaa = "Selecciona";
+  final storage = GetStorage(); // Inicializar GetStorage
+
   @override
   Widget build(BuildContext context) {
-    //preferenceModule.setString("new", "Theme by define");
-
-    //print(preferenceModule.getString("new"));
     String? userName = Get.arguments as String?;
-    
+
     return Scaffold(
       body: Center(
         child: Card(
@@ -74,6 +70,7 @@ class _GetSignState extends State<GetSign> {
                     if (resultado != null) {
                       setState(() {
                         _signo.setDate(resultado);
+                        storage.write('signoZodiacal', _signo.getSignoZodiacal());
                       });
                     }
                   },
@@ -103,7 +100,7 @@ class _GetSignState extends State<GetSign> {
                   padding: const EdgeInsets.all(12),
                   color: const Color.fromARGB(171, 80, 160, 251),
                   child: Text(
-                    _signo.getSignoZodiacal(),
+                    storage.read('signoZodiacal') ?? 'No hay signo seleccionado',
                     style: GoogleFonts.germaniaOne(
                       fontSize: 20,
                       color: const Color.fromARGB(255, 254, 5, 1),
@@ -129,9 +126,7 @@ class _GetSignState extends State<GetSign> {
                     ),
                     ElevatedButton(
                       onPressed: () {
-                        
-                        Get.toNamed('/moreget', arguments: _signo.getSignoZodiacal());
-
+                        Get.toNamed('/moreget');
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromARGB(237, 255, 255, 255),
