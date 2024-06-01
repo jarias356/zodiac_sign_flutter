@@ -1,40 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:zodiac_sign_flutter/ui/getcompatibility/get_compatibility_screen.dart';
+import 'package:zodiac_sign_flutter/ui/getsign/SignUpScreen.dart';
 import 'package:zodiac_sign_flutter/ui/getsign/get_more_sign.dart';
 import 'package:zodiac_sign_flutter/ui/getsign/get_sign_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:zodiac_sign_flutter/ui/login/login_screen.dart';
-
+import 'package:zodiac_sign_flutter/ui/login/Login.dart';
 
 
 void main() {
   runApp(
     GetMaterialApp(
       title: 'Zodiac App',
-      initialRoute: '/',
+      initialRoute: '/inicio',
       getPages: [
-        GetPage(name: '/SigIn', page: () =>  const SignIn()),
-        GetPage(name: '/', page: () =>  WelcomeScreen()),
+        GetPage(name: '/SigIn', page: () => const SignUp()),
+        GetPage(name: '/', page: () => const Login()),
         GetPage(name: '/get', page: () => const GetSign()), 
         GetPage(name: '/compatibility', page: () => const GetCompatibility()),
         GetPage(name: '/moreget', page: () => const GetMoreSign()),
+        GetPage(name: '/inicio', page: () => const WelcomeScreen()),
       ],
     ),
   );
 }
 
 class WelcomeScreen extends StatelessWidget {
-  WelcomeScreen({super.key});
+  const WelcomeScreen({super.key});
   //final loginViewModel = Get.find<LoginViewModel>();
   //final preferenceModule = Get.find<PreferenceModule>();
-
-  final String txtPrincipalWelcome = "¡Bienvenido al zodiaco! Donde los signos no solo predicen tu destino, sino también tus excusas.";
-  final String txtGetMySign = "Saber mi signo";
-  final String txtGetCompatibility = "Compatibilidad";
-  final String name = "Nombre";
-
-  final TextEditingController nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +90,7 @@ class WelcomeScreen extends StatelessWidget {
                     Text(
                       'Donde los signos no solo predicen tu destino, sino también tus excusas.',
                       textAlign: TextAlign.center,
-                      style: GoogleFonts.ptSans( 
+                      style: GoogleFonts.firaSans( 
                         fontWeight: FontWeight.bold, 
                         fontSize: 18, 
                         color:  const Color.fromARGB(255, 6, 5, 0), 
@@ -128,7 +122,7 @@ class WelcomeScreen extends StatelessWidget {
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  Get.toNamed('/');
+                                  Get.toNamed('/SigIn');
                                 },
                                 child: Container(
                                   height: size.height * 0.08,
@@ -144,7 +138,7 @@ class WelcomeScreen extends StatelessWidget {
                                   child: Center(
                                     child: Text(
                                       'Registrarse',
-                                      style: GoogleFonts.ptSans(
+                                      style: GoogleFonts.firaSans(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 20,
                                         color: const Color.fromARGB(255, 230, 2, 255),
@@ -157,11 +151,11 @@ class WelcomeScreen extends StatelessWidget {
                               const Spacer(),
                               GestureDetector(
                                 onTap: () {
-                                  Get.toNamed('/SigIn');
+                                  Get.toNamed('/');
                                 },
                                 child:  Text(
                                   'Iniciar Sesión',
-                                  style: GoogleFonts.ptSans( 
+                                  style: GoogleFonts.firaSans( 
                                   fontWeight: FontWeight.bold, 
                                   fontSize: 18, 
                                   color:  const Color.fromARGB(255, 255, 204, 2), 
@@ -185,4 +179,3 @@ class WelcomeScreen extends StatelessWidget {
     );
   }
 }
-
