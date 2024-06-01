@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:get_storage/get_storage.dart';
-//import 'package:zodiac_sign_flutter/ui/welcome/welcome_screen.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 
 class GetSign extends StatefulWidget {
   const GetSign({super.key});
 
   @override
-  
-  // ignore: library_private_types_in_public_api
-  _GetSignState createState() => _GetSignState();
+  State<GetSign> createState() => _GetSignState();
 }
 
 class _GetSignState extends State<GetSign> {
   final Signo _signo = Signo();
   final String tittle = "Elige tu fecha de nacimiento";
-  final String fechaa = "Selecciona";
   final storage = GetStorage(); // Inicializar GetStorage
 
   @override
@@ -29,6 +25,9 @@ class _GetSignState extends State<GetSign> {
         child: Card(
           color: const Color.fromARGB(237, 255, 245, 50),
           margin: const EdgeInsets.all(20),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20), 
+          ),
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
@@ -37,71 +36,85 @@ class _GetSignState extends State<GetSign> {
                 Container(
                   padding: const EdgeInsets.all(12),
                   margin: const EdgeInsets.symmetric(vertical: 20),
-                  color: const Color.fromARGB(255, 243, 229, 33),
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 243, 229, 33),
+                    borderRadius: BorderRadius.circular(20), 
+                  ),
                   child: Column(
                     children: [
                       Text(
-                        '¡Bienvenido, ${userName ?? "Nombre"}!',
-                        style: GoogleFonts.germaniaOne(
+                        '¡EMPECEMOS!',
+                        style: GoogleFonts.firaSans(
                           fontSize: 30,
                           color: const Color.fromARGB(255, 7, 174, 235),
                         ),
                         textAlign: TextAlign.center,
                       ),
-                      const SizedBox(height: 20),
+                      const SizedBox(height: 10),
                       Text(
                         tittle,
-                        style: GoogleFonts.germaniaOne(
+                        style: GoogleFonts.firaSans(
                           fontSize: 20,
-                          color: const Color.fromARGB(255, 7, 174, 235),
+                          color: Color.fromARGB(255, 104, 122, 129),
                         ),
                       ),
                     ],
                   ),
                 ),
-                ElevatedButton.icon(
-                  onPressed: () async {
-                    final resultado = await showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(1020),
-                      lastDate: DateTime(2050),
-                    );
-                    if (resultado != null) {
-                      setState(() {
-                        _signo.setDate(resultado);
-                        storage.write('signoZodiacal', _signo.getSignoZodiacal());
-                      });
-                    }
-                  },
-                  icon: const Icon(Icons.calendar_today),
-                  label: Text(
-                    fechaa,
-                    style: GoogleFonts.germaniaOne(
-                      fontSize: 20,
-                      color: const Color.fromARGB(255, 254, 216, 1),
-                    ),
+                const SizedBox(height: 10),
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(158, 255, 14, 14),
+                    borderRadius: BorderRadius.circular(20), // Bordes circulares para este contenedor
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        _signo.getDateString(),
+                        style: GoogleFonts.firaSans(
+                          fontSize: 20,
+                          color: const Color.fromARGB(255, 1, 140, 254),
+                        ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: IconButton(
+                          onPressed: () async {
+                            final resultado = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(1020),
+                              lastDate: DateTime(2050),
+                            );
+                            if (resultado != null) {
+                              setState(() {
+                                _signo.setDate(resultado);
+                                storage.write('signoZodiacal', _signo.getSignoZodiacal());
+                              });
+                            }
+                          },
+                          icon: const Icon(Icons.calendar_today),
+                          color: const Color.fromARGB(255, 1, 140, 254),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 const SizedBox(height: 20),
                 Container(
                   padding: const EdgeInsets.all(12),
-                  color: const Color.fromARGB(158, 255, 14, 14),
-                  child: Text(
-                    _signo.getDateString(),
-                    style: GoogleFonts.germaniaOne(
-                      fontSize: 20,
-                      color: const Color.fromARGB(255, 1, 140, 254),
-                    ),
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(171, 80, 160, 251),
+                    borderRadius: BorderRadius.circular(20), // Bordes circulares para este contenedor
                   ),
-                ),
-                const SizedBox(height: 20),
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  color: const Color.fromARGB(171, 80, 160, 251),
                   child: Text(
-                    storage.read('signoZodiacal') ?? 'No hay signo seleccionado',
-                    style: GoogleFonts.germaniaOne(
+                    storage.read('signoZodiacal') ?? 'El signo no ha sido seleccionado',
+                    style: GoogleFonts.firaSans(
                       fontSize: 20,
                       color: const Color.fromARGB(255, 254, 5, 1),
                     ),
@@ -118,10 +131,13 @@ class _GetSignState extends State<GetSign> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromARGB(237, 255, 255, 255),
                         side: const BorderSide(color: Color.fromARGB(255, 209, 73, 73)),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20), // Bordes circulares para el botón
+                        ),
                       ),
                       child: Text(
                         'Inicio',
-                        style: GoogleFonts.germaniaOne(fontSize: 18, color: const Color.fromARGB(236, 255, 1, 1)),
+                        style: GoogleFonts.firaSans(fontSize: 14, color: const Color.fromARGB(236, 255, 1, 1)),
                       ),
                     ),
                     ElevatedButton(
@@ -131,10 +147,13 @@ class _GetSignState extends State<GetSign> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromARGB(237, 255, 255, 255),
                         side: const BorderSide(color: Color.fromARGB(255, 255, 238, 0)),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20), // Bordes circulares para el botón
+                        ),
                       ),
                       child: Text(
                         'Más sobre mi signo',
-                        style: GoogleFonts.germaniaOne(fontSize: 18, color: const Color.fromARGB(255, 255, 230, 1)),
+                        style: GoogleFonts.firaSans(fontSize: 14, color: const Color.fromARGB(255, 255, 230, 1)),
                       ),
                     ),
                     ElevatedButton(
@@ -144,10 +163,13 @@ class _GetSignState extends State<GetSign> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromARGB(237, 255, 255, 255),
                         side: const BorderSide(color: Color.fromARGB(255, 0, 76, 255)),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20), // Bordes circulares para el botón
+                        ),
                       ),
                       child: Text(
                         'Compatibilidad',
-                        style: GoogleFonts.germaniaOne(fontSize: 18, color: const Color.fromARGB(255, 1, 213, 255)),
+                        style: GoogleFonts.firaSans(fontSize: 14, color: const Color.fromARGB(255, 1, 213, 255)),
                       ),
                     ),
                   ],
@@ -160,7 +182,6 @@ class _GetSignState extends State<GetSign> {
     );
   }
 }
-
 
 class Signo {
   DateTime? _date;
