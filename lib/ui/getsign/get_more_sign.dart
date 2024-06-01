@@ -1,68 +1,83 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:get_storage/get_storage.dart';
-//import 'package:zodiac_sign_flutter/ui/welcome/welcome_screen.dart';
-
-
 
 class GetMoreSign extends StatelessWidget {
   const GetMoreSign({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final storage = GetStorage(); // Inicializar GetStorage
+    final storage = GetStorage(); 
 
-    // Obtener el signo zodiacal almacenado en GetStorage
     final String signo = storage.read('signoZodiacal') ?? 'No hay signo seleccionado';
     final String descripcion = obtenerDescripcionSigno(signo);
 
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ZodiacCard(signo: signo, descripcion: descripcion),
-            const SizedBox(height: 20),
-            Row(
+      body: Stack(
+        children: [
+          // Imagen de fondo
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage('assets/images/constela.jpg'), 
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+          Center(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/');
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(235, 255, 247, 247),
-                    side: const BorderSide(color: Color.fromARGB(255, 255, 8, 0)),
-                  ),
-                  child: Text(
-                    'Inicio',
-                    style: GoogleFonts.germaniaOne(fontSize: 18, color: const Color.fromARGB(255, 190, 4, 4)),
-                  ),
-                ),
-                const SizedBox(width: 20),
-                ElevatedButton(
-                  onPressed: () {
-                    Get.toNamed('/compatibility');
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color.fromARGB(236, 1, 183, 189),
-                    side: const BorderSide(color: Color.fromARGB(255, 0, 76, 255)),
-                  ),
-                  child: Text(
-                    'Ver compatibilidad',
-                    style: GoogleFonts.germaniaOne(fontSize: 18, color: Colors.white),
-                  ),
+                ZodiacCard(signo: signo, descripcion: descripcion),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/get');
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(131, 255, 247, 247),
+                        side: const BorderSide(color: Color.fromARGB(255, 255, 8, 0)),
+                      ),
+                      child: Text(
+                        'Atrás',
+                        style: GoogleFonts.firaSans(
+                          fontSize: 18,
+                          color: const Color.fromARGB(255, 190, 4, 4),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 20),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/compatibility');
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(131, 255, 247, 247),
+                        side: const BorderSide(color: Color.fromARGB(255, 255, 8, 0)),
+                      ),
+                      child: Text(
+                        'Ver compatibilidad',
+                        style: GoogleFonts.firaSans(
+                          fontSize: 18,
+                          color: const Color.fromARGB(255, 190, 4, 4),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 }
-
 
 
 String obtenerDescripcionSigno(String signo) {
@@ -101,11 +116,12 @@ class ZodiacCard extends StatelessWidget {
   final String signo;
   final String descripcion;
 
-  const ZodiacCard({Key? key, required this.signo, required this.descripcion}) : super(key: key);
+  const ZodiacCard({super.key, required this.signo, required this.descripcion});
 
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: const Color.fromARGB(115, 253, 247, 191),
       margin: const EdgeInsets.all(20),
       child: Padding(
         padding: const EdgeInsets.all(20),
@@ -114,17 +130,17 @@ class ZodiacCard extends StatelessWidget {
           children: [
             Text(
               'Tu signo zodiacal es...',
-              style: GoogleFonts.germaniaOne(fontSize: 26, color: const Color.fromARGB(255, 240, 20, 20)),
+              style: GoogleFonts.firaSans(fontSize: 26, color: const Color.fromARGB(255, 240, 20, 20), fontWeight: FontWeight.bold,),
             ),
             const SizedBox(height: 10),
             Text(
               signo,
-              style: GoogleFonts.germaniaOne(fontSize: 30, color: Colors.blue),
+              style: GoogleFonts.firaSans(fontSize: 30, color: Colors.blue, fontWeight: FontWeight.bold,),
             ),
             const SizedBox(height: 10),
             Text(
               descripcion,
-              style: GoogleFonts.germaniaOne(fontSize: 20, color: Colors.black),
+              style: GoogleFonts.firaSans(fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold,),
             ),
           ],
         ),
