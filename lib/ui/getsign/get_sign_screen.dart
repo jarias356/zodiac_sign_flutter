@@ -14,7 +14,6 @@ class GetSignScreen extends StatefulWidget {
 class _GetSignScreenState extends State<GetSignScreen> {
   final Signo _signo = Signo();
   final storage = GetStorage(); // Inicializar GetStorage
-
   @override
   Widget build(BuildContext context) {
 

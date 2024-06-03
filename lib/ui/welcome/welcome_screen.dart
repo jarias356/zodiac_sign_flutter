@@ -58,7 +58,7 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                Navigator.pop(context);
+                Get.toNamed(RouteConst.compatibilityPages);
               },
             ),
           ],
