@@ -2,35 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:zodiac_sign_flutter/utils/constants.dart';
 
-
-class GetSign extends StatefulWidget {
-  const GetSign({super.key});
+class GetSignScreen extends StatefulWidget {
+  const GetSignScreen({super.key});
 
   @override
-  State<GetSign> createState() => _GetSignState();
+  State<GetSignScreen> createState() => _GetSignScreenState();
 }
 
-class _GetSignState extends State<GetSign> {
-  final Signo _signo = Signo();
-  final String tittle = "Elige tu fecha de nacimiento";
-  final storage = GetStorage(); // Inicializar GetStorage
-
-  @override
-  Widget import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:google_fonts/google_fonts.dart';
-
-
-class GetSign extends StatefulWidget {
-  const GetSign({super.key});
-
-  @override
-  State<GetSign> createState() => _GetSignState();
-}
-
-class _GetSignState extends State<GetSign> {
+class _GetSignScreenState extends State<GetSignScreen> {
   final Signo _signo = Signo();
   final String tittle = "Elige tu fecha de nacimiento";
   final storage = GetStorage(); // Inicializar GetStorage
@@ -39,21 +20,23 @@ class _GetSignState extends State<GetSign> {
   Widget build(BuildContext context) {
 
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(txtGetMySign),
+        backgroundColor: const Color.fromARGB(255, 208, 1, 254),
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: const Icon(Icons.arrow_back),
+        )
+      ),
       body: Stack(
         children: [
-          // Imagen de fondo
-          Positioned.fill(
-            child: Image.asset(
-              'assets/images/chacha.jpeg', 
-              fit: BoxFit.cover,
-            ),
-          ),
           Center(
             child: Card(
               color: const Color.fromARGB(98, 240, 182, 241),
-              margin: const EdgeInsets.all(20),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20), 
+                borderRadius: BorderRadius.circular(20),
               ),
               child: Padding(
                 padding: const EdgeInsets.all(20),
@@ -65,7 +48,7 @@ class _GetSignState extends State<GetSign> {
                       margin: const EdgeInsets.symmetric(vertical: 20),
                       decoration: BoxDecoration(
                         color: const Color.fromARGB(168, 243, 229, 33),
-                        borderRadius: BorderRadius.circular(20), 
+                        borderRadius: BorderRadius.circular(20),
                       ),
                       child: Column(
                         children: [
@@ -152,59 +135,6 @@ class _GetSignState extends State<GetSign> {
                       ),
                     ),
                     const SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/');
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromARGB(142, 255, 255, 255),
-                            side: const BorderSide(color: Color.fromARGB(255, 209, 73, 73)),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20), 
-                            ),
-                          ),
-                          child: Text(
-                            'Inicio',
-                            style: GoogleFonts.firaSans(fontSize: 14, color: const Color.fromARGB(236, 255, 1, 1), fontWeight: FontWeight.bold,),
-                          ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            Get.toNamed('/moreget');
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromARGB(171, 255, 255, 255),
-                            side: const BorderSide(color: Color.fromARGB(255, 255, 238, 0), ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20), // Bordes circulares para el botón
-                            ),
-                          ),
-                          child: Text(
-                            'Más sobre mi signo',
-                            style: GoogleFonts.firaSans(fontSize: 14, color: const Color.fromARGB(255, 255, 230, 1), fontWeight: FontWeight.bold,),
-                          ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            Get.toNamed('/compatibility');
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromARGB(145, 255, 255, 255),
-                            side: const BorderSide(color: Color.fromARGB(255, 0, 76, 255)),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20), 
-                            ),
-                          ),
-                          child: Text(
-                            'Compatibilidad',
-                            style: GoogleFonts.firaSans(fontSize: 14, color: const Color.fromARGB(255, 1, 213, 255), fontWeight: FontWeight.bold,),
-                          ),
-                        ),
-                      ],
-                    ),
                   ],
                 ),
               ),

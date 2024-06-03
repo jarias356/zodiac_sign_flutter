@@ -1,42 +1,69 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:zodiac_sign_flutter/ui/getcompatibility/get_compatibility_screen.dart';
-import 'package:zodiac_sign_flutter/ui/getsign/SignUpScreen.dart';
-import 'package:zodiac_sign_flutter/ui/getsign/get_more_sign.dart';
-import 'package:zodiac_sign_flutter/ui/getsign/get_sign_screen.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:zodiac_sign_flutter/ui/login/Login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:zodiac_sign_flutter/utils/constants.dart';
 
-
-void main() {
-  runApp(
-    GetMaterialApp(
-      title: 'Zodiac App',
-      initialRoute: '/inicio',
-      getPages: [
-        GetPage(name: '/SigIn', page: () => const SignUp()),
-        GetPage(name: '/', page: () => const Login()),
-        GetPage(name: '/get', page: () => const GetSign()), 
-        GetPage(name: '/compatibility', page: () => const GetCompatibility()),
-        GetPage(name: '/moreget', page: () => const GetMoreSign()),
-        GetPage(name: '/inicio', page: () => const WelcomeScreen()),
-      ],
-    ),
-  );
-}
+import '../../commons/utils/preference_keys.dart';
+import '../../route/route_const.dart';
 
 class WelcomeScreen extends StatelessWidget {
-  const WelcomeScreen({super.key});
-  //final loginViewModel = Get.find<LoginViewModel>();
-  //final preferenceModule = Get.find<PreferenceModule>();
+  WelcomeScreen({super.key});
+
+  final SharedPreferences _sharedPreferences = Get.find<SharedPreferences>();
+
+
 
   @override
   Widget build(BuildContext context) {
-    //preferenceModule.setString("new", "Theme by define");
-
-    //print(preferenceModule.getString("new"));
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 209, 3, 178),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            DrawerHeader(
+              decoration: const BoxDecoration(
+                color: Color.fromARGB(255, 209, 3, 178),
+              ),
+              child: Center(
+                child: Text(
+                  _sharedPreferences.getString(userNamePrefKey) ?? "---",
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                  ),
+                ),
+              ),
+            ),
+            ListTile(
+              title: const Text(
+                txtGetMySign,
+                style: TextStyle(
+                  fontSize: 18,
+                ),
+              ),
+              onTap: () {
+                Get.toNamed(RouteConst.mySignPage);
+              },
+            ),
+            ListTile(
+              title: const Text(
+                txtGetCompatibility,
+                style: TextStyle(
+                  fontSize: 18,
+                ),
+              ),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        ),
+      ),
       body: Container(
         color: const Color.fromARGB(255, 255, 255, 255),
         height: size.height,
@@ -61,7 +88,7 @@ class WelcomeScreen extends StatelessWidget {
                     bottomRight: Radius.circular(40),
                   ),
                   child: Image.network(
-                    'https://media.diariouno.com.ar/p/9f1c8c2fd87421d18b463fce00d97d7e/adjuntos/298/imagenes/009/259/0009259225/1200x0/smart/horoscopo-signos-zodiacojpg.jpg',
+                    urlImageWelcome,
                     fit: BoxFit.cover,
                     alignment: Alignment.topCenter,
                   ),
@@ -73,103 +100,34 @@ class WelcomeScreen extends StatelessWidget {
               left: 0,
               right: 0,
               child: Center(
-                child: Column(
-                  children: [
-                    Text(
-                      '¡Bienvenidos a Signo Zodiacal!',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.firaSans( 
-                        fontWeight: FontWeight.bold, 
-                        fontSize: 28, 
-                        color: const Color.fromARGB(255, 209, 3, 178), 
-                        height: 1
-                      ),
-                      
-                    ),
-                    const SizedBox(height: 25),
-                    Text(
-                      'Donde los signos no solo predicen tu destino, sino también tus excusas.',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.firaSans( 
-                        fontWeight: FontWeight.bold, 
-                        fontSize: 18, 
-                        color:  const Color.fromARGB(255, 6, 5, 0), 
-                        height: 1
-                      ),
-                    ),
-                    SizedBox(height: size.height * 0.07),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30),
-                      child: Container(
-                        height: size.height * 0.08,
-                        width: size.width,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: const Color.fromARGB(255, 247, 210, 107).withOpacity(0.30),
-                          border: Border.all(color: const Color.fromARGB(255, 255, 239, 95), width: 1),
-                          boxShadow: [
-                            BoxShadow(
-                              color: const Color.fromARGB(255, 247, 210, 107).withOpacity(0.05),
-                              spreadRadius: 1,
-                              blurRadius: 7,
-                              offset: const Offset(0, -1),
-                            ),
-                          ],
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 5),
-                          child: Row(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  Get.toNamed('/SigIn');
-                                },
-                                child: Container(
-                                  height: size.height * 0.08,
-                                  width: size.width / 2.2,
-                                  decoration: BoxDecoration(
-                                    color: const Color.fromARGB(255, 255, 255, 255),
-                                    borderRadius: BorderRadius.circular(15),
-                                    border: Border.all(
-                                      color: const Color.fromARGB(255, 246, 142, 255), // Color del borde
-                                      width: 2, // Grosor del borde
-                                    ),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      'Registrarse',
-                                      style: GoogleFonts.firaSans(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20,
-                                        color: const Color.fromARGB(255, 230, 2, 255),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                
-                              ),
-                              const Spacer(),
-                              GestureDetector(
-                                onTap: () {
-                                  Get.toNamed('/');
-                                },
-                                child:  Text(
-                                  'Iniciar Sesión',
-                                  style: GoogleFonts.firaSans( 
-                                  fontWeight: FontWeight.bold, 
-                                  fontSize: 18, 
-                                  color:  const Color.fromARGB(255, 255, 204, 2), 
-                                  height: 1
-                                  ),
-                                ),
-                              ),
-                              const Spacer(),
-                            ],
-                          ),
+                child: Padding(
+                  padding: const EdgeInsets.all(32.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        txtWelcome,
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.firaSans(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 28,
+                          color: const Color.fromARGB(255, 209, 3, 178),
+                          height: 1
                         ),
                       ),
-                    ),
-                  ],
+                      const SizedBox(height: 32),
+                      Text(
+                        txtWelcomeDescription,
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.firaSans(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                          color:  const Color.fromARGB(255, 6, 5, 0),
+                          height: 1
+                        ),
+                      ),
+                      const SizedBox(height: 32),
+                    ],
+                  ),
                 ),
               ),
             ),

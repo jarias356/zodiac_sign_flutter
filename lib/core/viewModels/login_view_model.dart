@@ -11,12 +11,16 @@ class LoginViewModel extends GetxController {
   final TextEditingController userNameController = TextEditingController();
   final RxString _userNameValue = "".obs;
 
+
   void setUserName(String value) {
     _userNameValue.value = value;
     _validInputUserName();
   }
   void _validInputUserName() {
     enabledButtonLogin.value = _userNameValue.value.isNotEmpty;
+  }
+  void saveUserName() {
+    _loginRepository.saveUserName(_userNameValue.value);
   }
 
 }
