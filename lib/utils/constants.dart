@@ -2,7 +2,7 @@ const  dbName = 'ZodiacSign';
 
 const dbVersion = 1;
 
-const txtPrincipalLogin = 'Hello! Whats Your Name?';
+const txtPrincipalLogin = 'Hola! Whats Your Name?';
 const txtWelcome = 'Welcome to Zodiac Sign!';
 const txtWelcomeDescription = 'Where the signs not only predict your destiny, but also your excuses.';
 const txtPrincipalWelcome = 'Welcome (variable con el nombre de la persona) you want today, want to know your sign or want to see if you are compatible with someone special ';

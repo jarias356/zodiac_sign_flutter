@@ -3,9 +3,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zodiac_sign_flutter/commons/generals_models/zodiac_sign.dart';
 import 'package:zodiac_sign_flutter/commons/utils/list_utils.dart';
 import 'package:zodiac_sign_flutter/commons/utils/preference_keys.dart';
+import 'package:zodiac_sign_flutter/core/domains/get_sign_domain.dart';
 
 class GetSignRepository {
   final SharedPreferences _sharedPreferences = Get.find<SharedPreferences>();
+  final GetSignDomain _getSignDomain = Get.find<GetSignDomain>();
 
   void saveDateInPreference(DateTime date) {
     _sharedPreferences.setString(
@@ -36,5 +38,9 @@ class GetSignRepository {
 
   String getDataUser() {
     return _sharedPreferences.getString(userDatePrefKey) ?? "";
+  }
+
+  void getMySignDescription()  {
+    _getSignDomain.fetchZodiacSigns();
   }
 }

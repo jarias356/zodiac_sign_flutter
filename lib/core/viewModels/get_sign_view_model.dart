@@ -31,6 +31,9 @@ class GetSignViewModel extends GetxController {
     resultYourSignName.value = zodiacSign.name;
     resultYourSignDescription.value = zodiacSign.description;
   }
+  void getMySignNetwork() {
+    _getSignRepository.getMySignDescription();
+  }
 
 
 }

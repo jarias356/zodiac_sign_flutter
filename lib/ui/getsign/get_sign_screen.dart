@@ -4,6 +4,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:zodiac_sign_flutter/utils/constants.dart';
 
+import '../../core/viewModels/get_sign_view_model.dart';
+
 class GetSignScreen extends StatefulWidget {
   const GetSignScreen({super.key});
 
@@ -16,6 +18,10 @@ class _GetSignScreenState extends State<GetSignScreen> {
   final storage = GetStorage(); // Inicializar GetStorage
   @override
   Widget build(BuildContext context) {
+
+    final _getSignViewModel = Get.find<GetSignViewModel>();
+
+    _getSignViewModel.getMySignNetwork();
 
     return Scaffold(
       appBar: AppBar(
