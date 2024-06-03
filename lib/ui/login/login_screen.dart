@@ -8,7 +8,7 @@ import '../../core/core.dart';
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
 
-  final _loginViewModel = Get.find<LoginViewModel>();
+  final LoginViewModel _loginViewModel = Get.find<LoginViewModel>();
 
   @override
   Widget build(BuildContext context) {

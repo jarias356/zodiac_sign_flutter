@@ -12,7 +12,6 @@ class LoginRepository {
 
   void saveUserName(String userNameValue) {
     ListUtils.lstAllSigns = _loginDomain.createListZodiacSigns();
-    ListUtils.lstMonths = _loginDomain.createMonthList();
 
     _sharedPreferences.setString(userNamePrefKey, userNameValue);
   }
