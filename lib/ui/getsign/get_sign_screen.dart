@@ -88,6 +88,7 @@ class _GetSignScreenState extends State<GetSignScreen> {
                               fontSize: 20,
                               color: const Color.fromARGB(255, 0, 0, 0),
                             ),
+
                           ),
                           Container(
                             decoration: BoxDecoration(

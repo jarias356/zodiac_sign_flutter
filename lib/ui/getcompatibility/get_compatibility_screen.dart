@@ -199,3 +199,4 @@ class ZodiacCard extends StatelessWidget {
     );
   }
 }
+

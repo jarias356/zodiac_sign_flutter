@@ -61,6 +61,7 @@ class WelcomeScreen extends StatelessWidget {
                 Get.toNamed(RouteConst.compatibilityPages);
               },
             ),
+
           ],
         ),
       ),

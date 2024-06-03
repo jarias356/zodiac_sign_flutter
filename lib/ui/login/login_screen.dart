@@ -36,6 +36,7 @@ class LoginScreen extends StatelessWidget {
                   onChanged: (value) {
                     _loginViewModel.setUserName(value);
                   },
+
                 ),
                 const SizedBox(height: 32),
                 Obx(() => FilledButton(
