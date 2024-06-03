@@ -13,7 +13,6 @@ class GetSignScreen extends StatefulWidget {
 
 class _GetSignScreenState extends State<GetSignScreen> {
   final Signo _signo = Signo();
-  final String tittle = "Elige tu fecha de nacimiento";
   final storage = GetStorage(); // Inicializar GetStorage
 
   @override
@@ -63,7 +62,7 @@ class _GetSignScreenState extends State<GetSignScreen> {
                           ),
                           const SizedBox(height: 10),
                           Text(
-                            tittle,
+                            txtChooseDayBirth,
                             style: GoogleFonts.firaSans(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
