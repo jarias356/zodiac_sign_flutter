@@ -1,34 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:zodiac_sign_flutter/core/viewModels/get_sign_view_model.dart';
 import 'package:zodiac_sign_flutter/utils/constants.dart';
 
-class GetSignScreen extends StatefulWidget {
+class GetSignScreen extends StatelessWidget {
   const GetSignScreen({super.key});
 
   @override
-  State<GetSignScreen> createState() => _GetSignScreenState();
-}
-
-class _GetSignScreenState extends State<GetSignScreen> {
-  final Signo _signo = Signo();
-  final storage = GetStorage(); // Inicializar GetStorage
-
-  @override
   Widget build(BuildContext context) {
+    final GetSignViewModel getSignViewModel = Get.find<GetSignViewModel>();
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(txtGetMySign),
-        backgroundColor: const Color.fromARGB(255, 208, 1, 254),
-        leading: IconButton(
-          onPressed: () {
-            Get.back();
-          },
-          icon: const Icon(Icons.arrow_back),
-        )
-      ),
+          title: const Text(txtGetMySign),
+          backgroundColor: const Color.fromARGB(255, 208, 1, 254),
+          leading: IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: const Icon(Icons.arrow_back),
+          )),
       body: Stack(
         children: [
           Center(
@@ -77,19 +69,11 @@ class _GetSignScreenState extends State<GetSignScreen> {
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
                         color: const Color.fromARGB(158, 255, 211, 14),
-                        borderRadius: BorderRadius.circular(20), // Bordes circulares para este contenedor
+                        borderRadius: BorderRadius.circular(
+                            20), // Bordes circulares para este contenedor
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      child: Column(
                         children: [
-                          Text(
-                            _signo.getDateString(),
-                            style: GoogleFonts.firaSans(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              color: const Color.fromARGB(255, 0, 0, 0),
-                            ),
-                          ),
                           Container(
                             decoration: BoxDecoration(
                               color: Colors.transparent,
@@ -97,18 +81,13 @@ class _GetSignScreenState extends State<GetSignScreen> {
                             ),
                             child: IconButton(
                               onPressed: () async {
-                                final resultado = await showDatePicker(
+                                final result = await showDatePicker(
                                   context: context,
                                   initialDate: DateTime.now(),
                                   firstDate: DateTime(1020),
                                   lastDate: DateTime(2050),
                                 );
-                                if (resultado != null) {
-                                  setState(() {
-                                    _signo.setDate(resultado);
-                                    storage.write('signoZodiacal', _signo.getSignoZodiacal());
-                                  });
-                                }
+                                getSignViewModel.setDayBirth(result);
                               },
                               icon: const Icon(Icons.calendar_today),
                               color: const Color.fromARGB(255, 208, 1, 254),
@@ -120,20 +99,45 @@ class _GetSignScreenState extends State<GetSignScreen> {
                     const SizedBox(height: 20),
                     Container(
                       padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: const Color.fromARGB(171, 245, 251, 80),
-                        borderRadius: BorderRadius.circular(20), // Bordes circulares para este contenedor
+                      decoration: const BoxDecoration(
+                        color: Color.fromARGB(171, 245, 251, 80),
                       ),
-                      child: Text(
-                        storage.read('signoZodiacal') ?? 'El signo no ha sido seleccionado',
-                        style: GoogleFonts.firaSans(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: const Color.fromARGB(255, 1, 1, 1),
-                        ),
+                      child: Column(
+                        children: [
+                          Obx(
+                            () => Text(
+                              getSignViewModel.dateUser.value,
+                              style: GoogleFonts.firaSans(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: const Color.fromARGB(255, 1, 1, 1),
+                              ),
+                            ),
+                          ),
+                          Obx(
+                            () => Text(
+                              getSignViewModel.resultYourSignName.value,
+                              style: GoogleFonts.firaSans(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                color: const Color.fromARGB(255, 0, 0, 0),
+                              ),
+                            ),
+                          ),
+                          Obx(
+                            () => Text(
+                              getSignViewModel.resultYourSignDescription.value,
+                              style: GoogleFonts.firaSans(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                color: const Color.fromARGB(255, 0, 0, 0),
+                              ),
+                            ),
+                          )
+                        ],
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: 32),
                   ],
                 ),
               ),
@@ -142,52 +146,5 @@ class _GetSignScreenState extends State<GetSignScreen> {
         ],
       ),
     );
-  }
-}
-
-
-class Signo {
-  DateTime? _date;
-
-  void setDate(DateTime date) {
-    _date = date;
-  }
-
-  String getDateString() {
-    if (_date != null) {
-      return '${_date!.day} - ${_date!.month} - ${_date!.year}';
-    }
-    return 'DD/MM/YYYY';
-  }
-
-  String getSignoZodiacal() {
-    if (_date != null) {
-      if ((_date!.month == 3 && _date!.day >= 21) || (_date!.month == 4 && _date!.day <= 19)) {
-        return 'Aries';
-      } else if ((_date!.month == 4 && _date!.day >= 20) || (_date!.month == 5 && _date!.day <= 20)) {
-        return 'Tauro';
-      } else if ((_date!.month == 5 && _date!.day >= 21) || (_date!.month == 6 && _date!.day <= 20)) {
-        return 'Géminis';
-      } else if ((_date!.month == 6 && _date!.day >= 21) || (_date!.month == 7 && _date!.day <= 22)) {
-        return 'Cáncer';
-      } else if ((_date!.month == 7 && _date!.day >= 23) || (_date!.month == 8 && _date!.day <= 22)) {
-        return 'Leo';
-      } else if ((_date!.month == 8 && _date!.day >= 23) || (_date!.month == 9 && _date!.day <= 22)) {
-        return 'Virgo';
-      } else if ((_date!.month == 9 && _date!.day >= 23) || (_date!.month == 10 && _date!.day <= 22)) {
-        return 'Libra';
-      } else if ((_date!.month == 10 && _date!.day >= 23) || (_date!.month == 11 && _date!.day <= 21)) {
-        return 'Escorpio';
-      } else if ((_date!.month == 11 && _date!.day >= 22) || (_date!.month == 12 && _date!.day <= 21)) {
-        return 'Sagitario';
-      } else if ((_date!.month == 12 && _date!.day >= 22) || (_date!.month == 1 && _date!.day <= 19)) {
-        return 'Capricornio';
-      } else if ((_date!.month == 1 && _date!.day >= 20) || (_date!.month == 2 && _date!.day <= 18)) {
-        return 'Acuario';
-      } else if ((_date!.month == 2 && _date!.day >= 19) || (_date!.month == 3 && _date!.day <= 20)) {
-        return 'Piscis';
-      }
-    }
-    return 'Tu signo es: ';
   }
 }
