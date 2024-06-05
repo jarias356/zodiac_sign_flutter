@@ -39,29 +39,7 @@ class GetCompatibility extends StatelessWidget {
                   const SizedBox(height: 50),
                   ZodiacCard(signo: signo, descripcion: descripcion),
                   const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/get');
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color.fromARGB(94, 255, 247, 247),
-                          side: const BorderSide(color: Color.fromARGB(255, 254, 242, 5)),
-                        ),
-                        child: Text(
-                          'Atras',
-                          style: GoogleFonts.firaSans(
-                            fontSize: 18,
-                            color: const Color.fromARGB(255, 255, 221, 0),
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 20),
-                    ],
-                  ),
+                  
                 ],
               ),
             ),
